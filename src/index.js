@@ -22,23 +22,19 @@ class Board extends React.Component {
   }
 
   render() {
+    let outerdiv = [];
+    let counter = 0;
+    for (let i = 0; i < this.props.gameSize; i++) {
+      let innerdiv = [];
+      for (let i = 0; i < this.props.gameSize; i++) {
+        let temp = this.renderSquare(counter++);
+        innerdiv.push(temp)
+      }
+      outerdiv.push(<div className="board-row">{innerdiv}</div>)
+    }
     return (
       <div>
-        <div className="board-row">
-          {this.renderSquare(0)}
-          {this.renderSquare(1)}
-          {this.renderSquare(2)}
-        </div>
-        <div className="board-row">
-          {this.renderSquare(3)}
-          {this.renderSquare(4)}
-          {this.renderSquare(5)}
-        </div>
-        <div className="board-row">
-          {this.renderSquare(6)}
-          {this.renderSquare(7)}
-          {this.renderSquare(8)}
-        </div>
+      {outerdiv}
       </div>
     );
   }
@@ -49,7 +45,7 @@ class Game extends React.Component {
     super(props);
     this.state = {
       history: [{
-        squares: Array(9).fill(null),
+        squares: Array(props.gameSize * 2).fill(null),
         changed: null,
       }],
       stepNumber: 0,
@@ -112,6 +108,7 @@ class Game extends React.Component {
       <Board 
         squares={current.squares}
         onClick={(i) => this.handleClick(i)}
+        gameSize={this.props.gameSize}
       />
       </div>
       <div className="game-info">
@@ -126,7 +123,9 @@ class Game extends React.Component {
 // ========================================
 
 ReactDOM.render(
-  <Game />,
+  <Game 
+    gameSize={3}
+  />,
   document.getElementById('root')
 );
 
