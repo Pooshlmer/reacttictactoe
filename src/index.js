@@ -10,6 +10,14 @@ function Square(props) {
   );
 }
 
+function Reverse(props) {
+  return (
+    <button onClick={props.onClick}>
+      Reverse move list
+    </button>
+  );
+}
+
 class Board extends React.Component {
 
   renderSquare(i) {
@@ -50,6 +58,7 @@ class Game extends React.Component {
       }],
       stepNumber: 0,
       xIsNext: true,
+      reversed: false,
     }
   }
 
@@ -69,6 +78,12 @@ class Game extends React.Component {
       stepNumber: history.length,
       xIsNext: !this.state.xIsNext,
     })
+  }
+
+  reverseList() {
+    this.setState({
+      reversed: !this.state.reversed,
+    });
   }
 
   jumpTo(step) {
@@ -93,6 +108,9 @@ class Game extends React.Component {
         </li>
       );
     });
+    if (this.state.reversed) {
+      moves.reverse();
+    }
 
 
     let status;
@@ -105,14 +123,19 @@ class Game extends React.Component {
     return (
     <div className="game">
       <div className="game-board">
-      <Board 
-        squares={current.squares}
-        onClick={(i) => this.handleClick(i)}
-        gameSize={this.props.gameSize}
-      />
+        <Board 
+          squares={current.squares}
+          onClick={(i) => this.handleClick(i)}
+          gameSize={this.props.gameSize}
+        />
       </div>
       <div className="game-info">
       <div>{status}</div>
+      <div>
+        <Reverse 
+          onClick={() => this.reverseList()}
+        />
+      </div>
       <ol>{moves}</ol>
       </div>
     </div>
