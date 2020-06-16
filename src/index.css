@@ -31,9 +31,10 @@ body {
     text-align: center;
     width: 34px;
   }
-  
-  .square:focus {
-    outline: none;
+
+  .winsquare {
+    outline: 2px solid #FF0000;
+    outline-offset: -3px;
   }
   
   .kbd-navigation .square:focus {
