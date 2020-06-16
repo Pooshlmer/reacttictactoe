@@ -50,7 +50,7 @@ class Board extends React.Component {
         let temp = this.renderSquare(counter++, highlight);
         innerdiv.push(temp)
       }
-      outerdiv.push(<div className="board-row">{innerdiv}</div>)
+      outerdiv.push(<div key={i} className="board-row">{innerdiv}</div>)
     }
     return (
       <div>
